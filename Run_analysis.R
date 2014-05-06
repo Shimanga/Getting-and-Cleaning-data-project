@@ -1,50 +1,38 @@
-#### IMPORTANT  if you want to keep your wd at a specific place 
-####substitute ~ by your specific path i.e (D:/R/Coursera) where data are located
+From the facets.txt file, we have all the facet names.So we read the facet.txt table, and try to filter out those facets and save them into facet to remove object
+facetNames <- read.table("facet.txt")
+facettoremove2 <- with(facetNames, facetNames[grepl("mean",V2) | grepl("std",V2),])
+facettoremove$V1 <- gsub("()","",facettoremove $V2,fixed=TRUE)
+facettoremove $V2 <- gsub("-",".",facettoremove $V2,fixed=TRUE)
+
+
+read and parse the training data files 
+subject_train <- read.table("subject_train.txt")
+x_train <- read.table("X_train.txt")
+x_train_removed <- x_train[,facettoremove$V1] get only the mean and std facets
+names(x_train_removed) <- facettoremove$V2  assign the facets names
+y_train <- read.table("y_train.txt")
+
+trainingSet <- cbind(subject_train, rep("TRAIN",nrow(subject_train)), y_train,x_train_removed) 
+colnames(trainingSet)[1] <- "subject"
+colnames(trainingSet)[2] <- "data.type"
+colnames(trainingSet)[3] <- "activity"
+
+
+The same thing is done for the testing data files where train is replaced with test
+merge training and test data frames
+
+tidy1 <- merge(trainingSet,testingSet)
+tidy1$activity <- as.factor(tidy1$activity)
+
+tidy2 <- aggregate(tidy1[,-c(1:3)], by=list(factor(tidy1$subject),factor(tidy1$activity), factor(tidy1$data.type)),mean)
+
+
+write.csv(tidy1,"tidy1.csv")
+write.csv(tidy2,"tidy2.csv")
+getwd()!="/Users/shimanga/Documents/Code/R/datasciencecoursera/data")
+setwd("/Users/shimanga/Documents/Code/R/datasciencecoursera/data")
 
 
 
-## First step: Reading Data into Environment
 
-features <- read.table("~/UCI HAR Dataset/features.txt", quote="\"")
-activity_labels <- read.table("~/UCI HAR Dataset/activity_labels.txt", quote="\"")
-subject_test <- read.table("~/UCI HAR Dataset/test/subject_test.txt", header=F, quote="\"")
-subject_train <- read.table("~/UCI HAR Dataset/train/subject_train.txt", header=F, quote="\"")
-x_test <- read.table("~/UCI HAR Dataset/test/X_test.txt", quote="\"")
-y_test <- read.table("~/UCI HAR Dataset/test/y_test.txt", quote="\"")
-x_train <- read.table("~/UCI HAR Dataset/train/X_train.txt", quote="\"")
-y_train <- read.table("~/UCI HAR Dataset/train/y_train.txt", quote="\"")
 
-## Second step: Present summary of data and check homogeneity of data
-table(y_test)
-table(y_train)
-ncol(x_test)
-ncol(x_train)
-nrow(features)
-nrow(x_test)+nrow(x_train)
-nrow(subject_test)+nrow(subject_train)
-
-## Third Step: Substitute the activity labels code by descriptive names
-##  Task 1 transform activity labels factors into char 
-alchar<- data.frame(lapply(activity_labels, as.character), stringsAsFactors=FALSE)
-##  Task 2 transform codes into names
-for (i in 1:6){
-  y_test$V1[which(y_test$V1==i)]<-alchar[i,2]
-  y_train$V1[which(y_train$V1==i)]<-alchar[i,2]
-}
-
-## Fourth Step Combine  vars and introduce names
-x_both<-rbind(x_test,x_train)
-y_both<-rbind(y_test,y_train)
-names(x_both)<-features[,2]
-names(y_both)<-"Activities"
-names(subject_test)<-"Subject"
-names(subject_train)<-"Subject"
-subject_both<-rbind(subject_test,subject_train)
-names(subject_both)<-"Subject"
-combidata<-cbind(x_both,y_both,subject_both)
-
-## Fifth Step: Create new dataframe with the desired results
-combmean<-aggregate(combidata,list(combidata[,562],combidata[,563]),mean)
-
-## Sixth Step present Data
-View(combmean)
