@@ -1,1 +1,20 @@
 .
+How the data was cleaned
+The cleaned data was transformed from the following files:
+1.	"features.txt": This file lists all the 561 features, but we selected only those "mean" or "std" features
+2.	"X_train.txt" and "X_test.txt" : The 561-feature vector with time and frequency domain variables are in this file, we chose only the 79 selected features from "features.txt"
+3.	"y_train.txt" and "y_test.txt": 6 training activity labels. These 79 feature vectors are mapped to the training activity labels in these files.
+4.	"subject.test.txt" and "subject.train.txt". we know who performed the experiments
+5.	"activity_labels.txt": from this we know which activity each dummy number (1-6) represented in the data
+We have only extracted the measurements on the mean and standard deviation for each measurement in the raw data set as requested. In the cleaned dataset, we have 82 variables in total, which include:
+3 experimental facets
+•	Subject: the person id recruited for the experiment 30 levels (1-30).
+•	 Activity: what the person was doing 6 levels 
+•	Data type : whether the data is from the training set or the testing set 2 levels (train, test)
+79 Numeric facets
+ tBodyAcc.mean.X tBodyAcc.mean.Y tBodyAcc.mean.Z tBodyAcc.std.X tBodyAcc.std.Y tBodyAcc.std.Z tGravityAcc.mean.X tGravityAcc.mean.Y tGravityAcc.mean.Z tGravityAcc.std.X tGravityAcc.std.Y tGravityAcc.std.Z tBodyAccJerk.mean.X tBodyAccJerk.mean.Y tBodyAccJerk.mean.Z tBodyAccJerk.std.X tBodyAccJerk.std.Y tBodyAccJerk.std.Z tBodyGyro.mean.X tBodyGyro.mean.Y tBodyGyro.mean.Z tBodyGyro.std.X tBodyGyro.std.Y tBodyGyro.std.Z tBodyGyroJerk.mean.X tBodyGyroJerk.mean.Y tBodyGyroJerk.mean.Z tBodyGyroJerk.std.X tBodyGyroJerk.std.Y tBodyGyroJerk.std.Z tBodyAccMag.mean tBodyAccMag.std tGravityAccMag.mean tGravityAccMag.std tBodyAccJerkMag.mean tBodyAccJerkMag.std tBodyGyroMag.mean tBodyGyroMag.std tBodyGyroJerkMag.mean tBodyGyroJerkMag.std fBodyAcc.mean.X fBodyAcc.mean.Y fBodyAcc.mean.Z fBodyAcc.std.X fBodyAcc.std.Y fBodyAcc.std.Z fBodyAcc.meanFreq.X fBodyAcc.meanFreq.Y fBodyAcc.meanFreq.Z fBodyAccJerk.mean.X fBodyAccJerk.mean.Y fBodyAccJerk.mean.Z fBodyAccJerk.std.X fBodyAccJerk.std.Y fBodyAccJerk.std.Z fBodyAccJerk.meanFreq.X fBodyAccJerk.meanFreq.Y fBodyAccJerk.meanFreq.Z fBodyGyro.mean.X fBodyGyro.mean.Y
+fBodyGyro.mean.Z fBodyGyro.std.X fBodyGyro.std.Y fBodyGyro.std.Z fBodyGyro.meanFreq.X fBodyGyro.meanFreq.Y fBodyGyro.meanFreq.Z fBodyAccMag.mean fBodyAccMag.std fBodyAccMag.meanFreq fBodyBodyAccJerkMag.mean fBodyBodyAccJerkMag.std fBodyBodyAccJerkMag.meanFreq fBodyBodyGyroMag.mean fBodyBodyGyroMag.std fBodyBodyGyroMag.meanFreq fBodyBodyGyroJerkMag.mean fBodyBodyGyroJerkMag.std fBodyBodyGyroJerkMag.meanFreq
+The numeric feature names are all self-explanatory.
+The raw data file that is available here http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones but we did not use these data. (the project requirements only asked us to extract mean and std from the 561-feature vectors) .
+NOTE: tidy2.csv is even further cleaned from tidy1.csv, because we are asked to "Creates a second, independent tidy data set with the average of each variable for each activity and each subject". So the each observation in this data set is an average for each activity and subject.
+
